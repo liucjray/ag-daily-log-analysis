@@ -1,0 +1,6 @@
+# config.sh
+#!/bin/sh
+
+# 定義全域參數
+export DEST_BASE_DIR="/mnt/d/ag-daily-log-analysis"
+export SOURCE_DIR="/mnt/c/Users/user/Downloads"
