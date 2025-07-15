@@ -25,6 +25,7 @@ if [ -f "$INPUT_FILE" ]; then
     | grep -v "base64" \
     | grep -v "user session" \
     | grep -v "uploadavar" \
+    | grep -v "/tooltypes" \
     > "$OUTPUT_FILE"
     
     # 檢查是否成功生成輸出檔案
