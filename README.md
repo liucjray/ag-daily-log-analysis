@@ -9,17 +9,17 @@
 cd /mnt/d/ag-daily-log-analysis; bash ./daily_log_rename_and_move.sh;
 ```
 
-### 92 coin-admin 昨日日誌分析
+### 92ca 昨日日誌分析
 ```
 cd /mnt/d/ag-daily-log-analysis; bash ./log_analysis_92_ca.sh;
 ```
 
-### 92 coin5 昨日日誌分析
+### 92c5 昨日日誌分析
 ```
 cd /mnt/d/ag-daily-log-analysis; bash ./log_analysis_92_c5.sh;
 ```
 
-### 88 coin-admin 昨日日誌分析
+### 88ca 昨日日誌分析
 ```
 cd /mnt/d/ag-daily-log-analysis; bash ./log_analysis_88_ca.sh;
 ```
