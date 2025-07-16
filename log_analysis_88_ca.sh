@@ -7,6 +7,13 @@ else
     INPUT_DATE="$1"
 fi
 
+# 檢查是否傳入過濾關鍵字，若無則使用預設過濾器
+if [ $# -ge 2 ]; then
+    FILTER_KEYWORD="$2"
+else
+    FILTER_KEYWORD=""
+fi
+
 # 處理日期參數
 case "$INPUT_DATE" in
     "today")
@@ -31,24 +38,31 @@ FILE_PREFIX="88ca"
 
 # 定義輸入和輸出檔案
 INPUT_FILE="./${MY_DATE}/resources/${FILE_PREFIX}${MY_DATE}.log"
-OUTPUT_FILE="./${MY_DATE}/${FILE_PREFIX}${MY_DATE}.filter.main.log"
+OUTPUT_FILE="./${MY_DATE}/${FILE_PREFIX}${MY_DATE}.filter.daily.log"
 
 # 檢查輸入檔案是否存在
 if [ -f "$INPUT_FILE" ]; then
-    # 應用過濾條件並輸出到目標檔案
-    grep -v "checktoken" "$INPUT_FILE" \
-    | grep -v '\-\-\-\-\-' \
-    | grep -v 'getCountDown' \
-    | grep -v 'goldrecord' \
-    | grep -v 'getplayerdatawithcond' \
-    | grep -v 'scaler_quote' \
-    | grep -v 'backenduserlist' \
-    | grep -v 'base64' \
-    | grep -v 'changeavatar' \
-    | grep -v 'club_wpt_transaction' \
-    | grep -v '"error_code":0' \
-    | grep -v 'user session' \
-    > "$OUTPUT_FILE"
+
+    # 如果有傳入關鍵字，使用 grep -E 過濾；否則使用預設過濾器
+    if [ -n "$FILTER_KEYWORD" ]; then
+        OUTPUT_FILE="./${MY_DATE}/${FILE_PREFIX}${MY_DATE}.filter.keyword.log"
+        grep -E "$FILTER_KEYWORD" "$INPUT_FILE" > "$OUTPUT_FILE"
+    else
+        # 應用過濾條件並輸出到目標檔案
+        grep -v "checktoken" "$INPUT_FILE" \
+        | grep -v '\-\-\-\-\-' \
+        | grep -v 'getCountDown' \
+        | grep -v 'goldrecord' \
+        | grep -v 'getplayerdatawithcond' \
+        | grep -v 'scaler_quote' \
+        | grep -v 'backenduserlist' \
+        | grep -v 'base64' \
+        | grep -v 'changeavatar' \
+        | grep -v 'club_wpt_transaction' \
+        | grep -v '"error_code":0' \
+        | grep -v 'user session' \
+        > "$OUTPUT_FILE"
+    fi
     
     # 檢查是否成功生成輸出檔案
     if [ $? -eq 0 ]; then
