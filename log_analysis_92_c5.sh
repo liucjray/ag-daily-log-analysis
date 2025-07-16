@@ -1,8 +1,30 @@
-#!/bin/sh
+#!/bin/bash
 
-# 定義指定日期
-# MY_DATE="20250712"
-MY_DATE=$(date -d "yesterday" +%Y%m%d)
+# 檢查是否傳入參數，若無則預設為 yesterday
+if [ $# -eq 0 ]; then
+    INPUT_DATE="yesterday"
+else
+    INPUT_DATE="$1"
+fi
+
+# 處理日期參數
+case "$INPUT_DATE" in
+    "today")
+        MY_DATE=$(date +%Y%m%d)
+        ;;
+    "yesterday")
+        MY_DATE=$(date -d "yesterday" +%Y%m%d)
+        ;;
+    *)
+        # 檢查是否為 YYYYMMDD 格式
+        if echo "$INPUT_DATE" | grep -E '^[0-9]{8}$' >/dev/null; then
+            MY_DATE="$INPUT_DATE"
+        else
+            echo "錯誤：無效的日期格式，應為 YYYYMMDD、today 或 yesterday"
+            exit 1
+        fi
+        ;;
+esac
 
 # 檔案前綴
 FILE_PREFIX="92c5"
@@ -15,28 +37,38 @@ OUTPUT_FILE="./${MY_DATE}/${FILE_PREFIX}${MY_DATE}.filter.main.log"
 if [ -f "$INPUT_FILE" ]; then
     # 應用過濾條件並輸出到目標檔案
     grep -v "ping" "$INPUT_FILE" \
-    | grep -v "getFeedbackLists"  \
-    | grep -v "getResources"  \
-    | grep -v "getdomainurl"  \
-    | grep -v "getcacha"  \
-    | grep -v "\-\-\-\-\-"  \
-    | grep -v "==="  \
-    | grep -v "isV3"  \
-    | grep -v "isE1"  \
-    | grep -v "e1 route"  \
-    | grep -v "191\.INFO"  \
-    | grep -v "登录成功"  \
-    | grep -v '"error_code":0'  \
-    | grep -v '"msg_code":"0'  \
-    | grep -v '"errCode":"0000'  \
-    | grep -v 'is_v3_login":true'  \
-    | grep -v 'pubkey'  \
-    | grep -v 'getCustom'  \
-    | grep -v 'user info ip_info'  \
-    | grep -v 'pkq9/success'  \
-    | grep -vi '\\/user\\/article\\/getlist'  \
+    | grep -v "getFeedbackLists" \
+    | grep -v "getResources" \
+    | grep -v "getdomainurl" \
+    | grep -v "getcacha" \
+    | grep -v "\-\-\-\-\-" \
+    | grep -v "===" \
+    | grep -v "isV3" \
+    | grep -v "isE1" \
+    | grep -v "e1 route" \
+    | grep -v "191\.INFO" \
+    | grep -v "验证tonken\.INFO" \
+    | grep -v "user-article-custom-log\.INFO" \
+    | grep -v "登录成功" \
+    | grep -v '"error_code":0' \
+    | grep -v '"msg_code":"0"' \
+    | grep -v '"errCode":"0000"' \
+    | grep -v '"is_v3_login":true' \
+    | grep -v "pubkey" \
+    | grep -v "getCustom" \
+    | grep -v "user info ip_info" \
+    | grep -v "pkq9/success" \
+    | grep -v 'OPTIONS request ignore logging' \
+    | grep -vi '|GET|' \
+    | grep -vi 'user\\\/article\\\/getlist' \
+    | grep -vi 'user\\\/Article\\\/getRule' \
+    | grep -vi 'user\\\/article\\\/custom' \
+    | grep -vi '\\\/chatchat\\\/token\\\/check' \
+    | grep -vi '\\\/index.php\\\/v3\\\/User\\\/Ucenter\\\/logout' \
+    | grep -vi '\\\/click\\\/counter' \
+    | grep -vi '"success":true,"message":"Success"' \
     > "$OUTPUT_FILE"
-    
+
     # 檢查是否成功生成輸出檔案
     if [ $? -eq 0 ]; then
         echo "成功生成過濾後的日誌檔案：$OUTPUT_FILE"

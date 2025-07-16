@@ -1,8 +1,30 @@
 #!/bin/sh
 
-# 定義指定日期
-# MY_DATE="20250712"
-MY_DATE=$(date -d "yesterday" +%Y%m%d)
+# 檢查是否傳入參數，若無則預設為 yesterday
+if [ $# -eq 0 ]; then
+    INPUT_DATE="yesterday"
+else
+    INPUT_DATE="$1"
+fi
+
+# 處理日期參數
+case "$INPUT_DATE" in
+    "today")
+        MY_DATE=$(date +%Y%m%d)
+        ;;
+    "yesterday")
+        MY_DATE=$(date -d "yesterday" +%Y%m%d)
+        ;;
+    *)
+        # 檢查是否為 YYYYMMDD 格式
+        if echo "$INPUT_DATE" | grep -E '^[0-9]{8}$' >/dev/null; then
+            MY_DATE="$INPUT_DATE"
+        else
+            echo "錯誤：無效的日期格式，應為 YYYYMMDD、today 或 yesterday"
+            exit 1
+        fi
+        ;;
+esac
 
 # 檔案前綴
 FILE_PREFIX="92ca"
