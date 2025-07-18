@@ -9,30 +9,37 @@
 cd /mnt/d/ag-daily-log-analysis; bash ./daily_log_rename_and_move.sh;
 ```
 
+### 昨日日誌分析
+```
+cd /mnt/d/ag-daily-log-analysis; bash ./log_analysis_92_ca.sh yesterday;
+cd /mnt/d/ag-daily-log-analysis; bash ./log_analysis_92_c5.sh yesterday;
+cd /mnt/d/ag-daily-log-analysis; bash ./log_analysis_88_ca.sh yesterday;
+```
+
 ### 92ca 日誌分析
 ```
 cd /mnt/d/ag-daily-log-analysis; bash ./log_analysis_92_ca.sh yesterday;
 cd /mnt/d/ag-daily-log-analysis; bash ./log_analysis_92_ca.sh today;
-cd /mnt/d/ag-daily-log-analysis; bash ./log_analysis_92_ca.sh 20250101;
+cd /mnt/d/ag-daily-log-analysis; bash ./log_analysis_92_ca.sh 2025xxxx;
 ```
 
 ### 92c5 日誌分析
 ```
 cd /mnt/d/ag-daily-log-analysis; bash ./log_analysis_92_c5.sh yesterday;
 cd /mnt/d/ag-daily-log-analysis; bash ./log_analysis_92_c5.sh today;
-cd /mnt/d/ag-daily-log-analysis; bash ./log_analysis_92_c5.sh 20250101;
+cd /mnt/d/ag-daily-log-analysis; bash ./log_analysis_92_c5.sh 2025xxxx;
 ```
 
 ### 88ca 日誌分析
 ```
 cd /mnt/d/ag-daily-log-analysis; bash ./log_analysis_88_ca.sh yesterday;
 cd /mnt/d/ag-daily-log-analysis; bash ./log_analysis_88_ca.sh today;
-cd /mnt/d/ag-daily-log-analysis; bash ./log_analysis_88_ca.sh 20250101;
+cd /mnt/d/ag-daily-log-analysis; bash ./log_analysis_88_ca.sh 2025xxxx;
 ``` 
 
 ### 指定 trace_id 日誌過濾
 ```
-grep -e '6873d63c19d07' ./92c520250713.log > ./92c520250713.6873d63c19d07.log;
+cd /mnt/d/ag-daily-log-analysis; bash ./log_analysis_92_c5.sh yesterday '6873d63c19d07';
 ```
 
 ### 指定 keyword 日誌過濾

@@ -54,32 +54,46 @@ if [ -f "$INPUT_FILE" ]; then
         | grep -v "getResources" \
         | grep -v "getdomainurl" \
         | grep -v "getcacha" \
+        | grep -v "getCustom" \
+        | grep -v "getCaptcha" \
+        | grep -v "getVcodeByDevice" \
         | grep -v "\-\-\-\-\-" \
         | grep -v "===" \
         | grep -v "isV3" \
         | grep -v "isE1" \
         | grep -v "e1 route" \
-        | grep -v "191\.INFO" \
-        | grep -v "验证tonken\.INFO" \
         | grep -v "user-article-custom-log\.INFO" \
-        | grep -v "登录成功" \
-        | grep -v '"error_code":0' \
-        | grep -v '"msg_code":"0"' \
-        | grep -v '"errCode":"0000"' \
-        | grep -v '"is_v3_login":true' \
         | grep -v "pubkey" \
-        | grep -v "getCustom" \
         | grep -v "user info ip_info" \
         | grep -v "pkq9/success" \
-        | grep -v 'OPTIONS request ignore logging' \
+        | grep -vi '|OPTIONS|' \
         | grep -vi '|GET|' \
         | grep -vi 'user\\\/article\\\/getlist' \
         | grep -vi 'user\\\/Article\\\/getRule' \
         | grep -vi 'user\\\/article\\\/custom' \
-        | grep -vi '\\\/chatchat\\\/token\\\/check' \
-        | grep -vi '\\\/index.php\\\/v3\\\/User\\\/Ucenter\\\/logout' \
-        | grep -vi '\\\/click\\\/counter' \
+        | grep -vi 'chatchat\\\/token\\\/check' \
+        | grep -vi 'index.php\\\/v3\\\/User\\\/Ucenter\\\/logout' \
+        | grep -vi 'click\\\/counter' \
+        | grep -v '"is_v3_login":true' \
         | grep -vi '"success":true,"message":"Success"' \
+        | grep -v '"error_code":0' \
+        | grep -v '"msg_code":"0"' \
+        | grep -v '"errCode":"0000"' \
+        | grep -v "验证tonken\.INFO" \
+        | grep -v "登录成功" \
+        | grep -v "异地登录短信日志" \
+        | grep -vE "getVcodeByRegister.*post_data" \
+        | grep -vE "checkVcodeByForgetPwd.*post_data" \
+        | grep -vE "bindSafeDevice.*post_data" \
+        | grep -vE "func\\\/report.*post_data" \
+        | grep -vE "userAdd.*post_data" \
+        | grep -vE "getVcodeByResetSafe.*post_data" \
+        | grep -vE "resetSafe.*post_data" \
+        | grep -vE "getFeedbackCommentLists.*post_data" \
+        | grep -vE "modifyUserInfo.*post_data" \
+        | grep -vE "getVcodeByForgetPwd.*post_data" \
+        | grep -vE "checkUsername.*post_data" \
+        | grep -vE "forgetPwd.*post_data" \
         > "$OUTPUT_FILE"
     fi
 
