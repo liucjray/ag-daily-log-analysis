@@ -53,14 +53,15 @@ if [ -f "$INPUT_FILE" ]; then
         | grep -v "\-\-\-\-\-" \
         | grep -v "getCountDown" \
         | grep -v "goldrecord" \
-        | grep -v "getplayerdatawithcond" \
-        | grep -v "scaler_quote" \
+        | grep -vE "getplayerdatawithcond.*没找到对应用户" \
+        | grep -vE "scaler_quote.*success\"\:true" \
         | grep -v "backenduserlist" \
         | grep -v "error_code\"\:0" \
         | grep -v "base64" \
         | grep -v "user session" \
-        | grep -v "uploadavar" \
+        | grep -vE "uploadavar.*code\"\:0" \
         | grep -v "/tooltypes" \
+        | grep -vE "mtt\/index.*error\"\:0" \
         > "$OUTPUT_FILE"
     fi
     
