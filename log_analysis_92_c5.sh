@@ -94,6 +94,11 @@ if [ -f "$INPUT_FILE" ]; then
         | grep -vE "getVcodeByForgetPwd.*post_data" \
         | grep -vE "checkUsername.*post_data" \
         | grep -vE "forgetPwd.*post_data" \
+        | grep -vE "checkVcodeByRegister.*post_data" \
+        | grep -vE "checkmobilenum.*手机号不同" \
+        | grep -vE "forgetPwd.*密码不能和二级密码一致！" \
+        | grep -vE "resetSafe.*密码不能和登录密码一致" \
+        | grep -vE "getVcodeByRegister.*手机格式不正确" \
         > "$OUTPUT_FILE"
     fi
 

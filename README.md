@@ -44,7 +44,68 @@ cd /mnt/d/ag-daily-log-analysis; bash ./log_analysis_92_c5.sh yesterday '6873d63
 
 ### 指定 keyword 日誌過濾
 ```
-cd /mnt/d/ag-daily-log-analysis; bash ./log_analysis_92_c5.sh yesterday 'Undefined|参数错误|Unauthorized';
+cd /mnt/d/ag-daily-log-analysis; bash ./log_analysis_92_c5.sh yesterday 'useronequery';
 cd /mnt/d/ag-daily-log-analysis; bash ./log_analysis_92_ca.sh today 'Failed|Undefined';
 cd /mnt/d/ag-daily-log-analysis; bash ./log_analysis_88_ca.sh yesterday 'Failed|Undefined';
+```
+
+### 計算特定格式內容出現次數 
+
+#### 過濾條件 = 验证手机号是否存在 + mobile
+```
+grep "checkmobileexist" $(sh ./logname_gen.sh) | \
+grep -oP '"mobile":"\K[^"]+' | \
+sort | \
+uniq -c | \
+sort -nr;
+```
+
+#### 過濾條件 = 黑名单日志 + user_id
+```
+grep "黑名单日志" $(sh ./logname_gen.sh) | \
+grep -oP '"user_id":\K\d+' | \
+sort | \
+uniq -c | \
+sort -nr;
+```
+
+#### 過濾條件 = 获取用户信息 + user_id
+```
+grep "useronequery" $(sh ./logname_gen.sh) | \
+grep -oP '"id":\K\d+' | \
+sort | \
+uniq -c | \
+sort -nr;
+```
+
+#### 過濾條件 = 原始资料 + 获取用户信息 + user_id + 僅顯示前十筆
+```
+grep "useronequery" $(sh ./logname_gen.sh 92c5 yesterday resource) | \
+grep -oP '"id":\K\d+' | \
+sort | \
+uniq -c | \
+sort -nr | \
+head -n 10;
+```
+
+#### 過濾條件 = addaccountdevice + post_data.mobile
+```
+grep "addaccountdevice" $(sh ./logname_gen.sh) | \
+grep -oP '"post_data":\{[^}]*"mobile":"\K[^"]+' | \
+sort | \
+uniq -c | \
+sort -nr;
+```
+
+#### 過濾條件 = 原始资料 + IP請求計數 + 僅顯示前十筆
+```
+grep -v "ping" \
+$(./logname_gen.sh 92c5 yesterday resource) | \
+grep "|POST|" | \
+grep -oP '\|\K\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\|' | \
+sed 's/|$//' | \
+sort | \
+uniq -c | \
+sort -nr | \
+head -n 50;
 ```
