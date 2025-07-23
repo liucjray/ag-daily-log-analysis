@@ -44,8 +44,8 @@ cd /mnt/d/ag-daily-log-analysis; bash ./log_analysis_92_c5.sh yesterday '6873d63
 
 ### 指定 keyword 日誌過濾
 ```
-cd /mnt/d/ag-daily-log-analysis; bash ./log_analysis_92_c5.sh yesterday 'useronequery';
-cd /mnt/d/ag-daily-log-analysis; bash ./log_analysis_92_ca.sh today 'Failed|Undefined';
+cd /mnt/d/ag-daily-log-analysis; bash ./log_analysis_92_c5.sh yesterday '2406141';
+cd /mnt/d/ag-daily-log-analysis; bash ./log_analysis_92_ca.sh yesterday 'Failed|Undefined';
 cd /mnt/d/ag-daily-log-analysis; bash ./log_analysis_88_ca.sh yesterday 'Failed|Undefined';
 ```
 
@@ -71,16 +71,17 @@ sort -nr;
 
 #### 過濾條件 = 获取用户信息 + user_id
 ```
-grep "useronequery" $(sh ./logname_gen.sh) | \
+grep "useronequery" $(sh ./logname_gen.sh 92c5 yesterday resource) | \
 grep -oP '"id":\K\d+' | \
 sort | \
 uniq -c | \
-sort -nr;
+sort -nr | \
+head -n 10;
 ```
 
 #### 過濾條件 = 原始资料 + 获取用户信息 + user_id + 僅顯示前十筆
 ```
-grep "useronequery" $(sh ./logname_gen.sh 92c5 yesterday resource) | \
+grep "useronequery" $(sh ./logname_gen.sh 92c5 today resource) | \
 grep -oP '"id":\K\d+' | \
 sort | \
 uniq -c | \
@@ -90,11 +91,12 @@ head -n 10;
 
 #### 過濾條件 = addaccountdevice + post_data.mobile
 ```
-grep "addaccountdevice" $(sh ./logname_gen.sh) | \
+grep "addaccountdevice" $(sh ./logname_gen.sh 92c5 today resource) | \
 grep -oP '"post_data":\{[^}]*"mobile":"\K[^"]+' | \
 sort | \
 uniq -c | \
-sort -nr;
+sort -nr
+head -n 10;
 ```
 
 #### 過濾條件 = 原始资料 + IP請求計數 + 僅顯示前十筆

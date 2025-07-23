@@ -45,7 +45,7 @@ if [ -f "$INPUT_FILE" ]; then
 
     # 如果有傳入關鍵字，使用 grep -E 過濾；否則使用預設過濾器
     if [ -n "$FILTER_KEYWORD" ]; then
-        OUTPUT_FILE="./${MY_DATE}/${FILE_PREFIX}${MY_DATE}.filter.keyword.log"
+        OUTPUT_FILE="./${MY_DATE}/${FILE_PREFIX}${MY_DATE}.filter.keyword.$(date +%s).log"
         grep -E "$FILTER_KEYWORD" "$INPUT_FILE" > "$OUTPUT_FILE"
     else
         # 應用過濾條件並輸出到目標檔案
@@ -84,9 +84,11 @@ if [ -f "$INPUT_FILE" ]; then
         | grep -v "异地登录短信日志" \
         | grep -vE "getVcodeByRegister.*post_data" \
         | grep -vE "checkVcodeByForgetPwd.*post_data" \
+        | grep -vE "getVcodeByResetPwd.*post_data" \
         | grep -vE "bindSafeDevice.*post_data" \
         | grep -vE "func\\\/report.*post_data" \
         | grep -vE "userAdd.*post_data" \
+        | grep -vE "addFeedbackComment.*post_data" \
         | grep -vE "getVcodeByResetSafe.*post_data" \
         | grep -vE "resetSafe.*post_data" \
         | grep -vE "getFeedbackCommentLists.*post_data" \
