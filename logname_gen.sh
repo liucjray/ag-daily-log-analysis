@@ -7,7 +7,7 @@ log_type="${3:-daily}"
 
 # 驗證 prefix
 case "$prefix" in
-    92ca|92c5|88ca)
+    92ca|92c5|88ca|92ps)
         ;;
     *)
         echo "Error: Invalid prefix. Must be 92ca, 92c5, or 88ca." >&2

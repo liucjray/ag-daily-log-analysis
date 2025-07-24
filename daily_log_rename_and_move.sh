@@ -30,6 +30,8 @@ for file in "$SOURCE_DIR"/*_PHP_game_*.log; do
                 suffix="ca"
             elif [[ $filename =~ _coin5_ ]]; then
                 suffix="c5"
+            elif [[ $filename =~ _proxy_server_ ]]; then
+                suffix="ps"
             else
                 echo "跳過 $filename：未知的檔案類型"
                 continue
