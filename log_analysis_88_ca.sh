@@ -59,6 +59,7 @@ if [ -f "$INPUT_FILE" ]; then
         | grep -v 'base64' \
         | grep -v 'changeavatar' \
         | grep -v 'club_wpt_transaction' \
+        | grep -v 'tooltypes' \
         | grep -v '"error_code":0' \
         | grep -v 'user session' \
         > "$OUTPUT_FILE"
