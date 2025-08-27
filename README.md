@@ -4,6 +4,11 @@
 3. 執行 bash ./daily_log_rename_and_move.sh
 4. 將下載回來的日誌更名並移動至 /mnt/d/ag-daily-log-analysis/${date}/resources
 
+### 執行清理本地日誌資料夾
+```bash
+cd /mnt/d/ag-daily-log-analysis; bash ./log_clean_by_day.sh 30;
+```
+
 ### 執行日誌下載檔案更名與移動指令
 ```bash
 cd /mnt/d/ag-daily-log-analysis; bash ./daily_log_rename_and_move.sh;
@@ -17,14 +22,30 @@ cd /mnt/d/ag-daily-log-analysis; bash ./log_analysis_92_ps.sh yesterday;
 cd /mnt/d/ag-daily-log-analysis; bash ./log_analysis_88_ca.sh yesterday;
 ```
 
+### 今日日誌分析
+```bash
+cd /mnt/d/ag-daily-log-analysis; bash ./log_analysis_92_ca.sh today;
+cd /mnt/d/ag-daily-log-analysis; bash ./log_analysis_92_c5.sh today;
+cd /mnt/d/ag-daily-log-analysis; bash ./log_analysis_92_ps.sh today;
+cd /mnt/d/ag-daily-log-analysis; bash ./log_analysis_88_ca.sh today;
+```
+
 ### 92ca 日誌分析
+
 ```bash
 cd /mnt/d/ag-daily-log-analysis; bash ./log_analysis_92_ca.sh yesterday;
+```
+
+```bash
 cd /mnt/d/ag-daily-log-analysis; bash ./log_analysis_92_ca.sh today;
+```
+
+```bash
 cd /mnt/d/ag-daily-log-analysis; bash ./log_analysis_92_ca.sh 2025xxxx;
 ```
 
 ### 92c5 日誌分析
+
 ```bash
 cd /mnt/d/ag-daily-log-analysis; bash ./log_analysis_92_c5.sh yesterday;
 cd /mnt/d/ag-daily-log-analysis; bash ./log_analysis_92_c5.sh today;
@@ -39,9 +60,16 @@ cd /mnt/d/ag-daily-log-analysis; bash ./log_analysis_88_ca.sh 2025xxxx;
 ```
 
 ### 92ps 日誌分析
+
 ```bash
 cd /mnt/d/ag-daily-log-analysis; bash ./log_analysis_92_ps.sh yesterday;
+```
+
+```bash
 cd /mnt/d/ag-daily-log-analysis; bash ./log_analysis_92_ps.sh today;
+```
+
+```bash
 cd /mnt/d/ag-daily-log-analysis; bash ./log_analysis_92_ps.sh 2025xxxx;
 ```
 
@@ -60,7 +88,7 @@ $(sh ./logname_gen.sh 92c5 yesterday resource) | \
 grep -oP '"mobile":"\K[^"]+' | \
 sort | \
 uniq -c | \
-sort -nr
+sort -nr | \
 head -n 50;
 ```
 

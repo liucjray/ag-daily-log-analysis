@@ -55,6 +55,7 @@ if [ -f "$INPUT_FILE" ]; then
         | grep -v "退出审核公会后台.INFO" \
         | grep -v "getreportlist" \
         | grep -v "sendMail.INFO" \
+        | grep -v "Req.INFO" \
         | grep -vE "adminnewmail.*error_code\"\:0" \
         | grep -vE "getreportinfo.*error_code\"\:0" \
         | grep -vE "getrecordinfo.*error_code\"\:0" \
@@ -62,6 +63,7 @@ if [ -f "$INPUT_FILE" ]; then
         | grep -vE "getuserinfo.*error_code\"\:0" \
         | grep -vE "modifyreportstatus.*error_code\"\:0" \
         | grep -vE "7269\\\/apiproxybackend.*error_code\"\:0" \
+        | grep -vE "7269\\\/adminnewmail.*error plat 4" \
         > "$OUTPUT_FILE"
     fi
     

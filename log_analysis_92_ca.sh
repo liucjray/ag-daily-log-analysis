@@ -62,6 +62,8 @@ if [ -f "$INPUT_FILE" ]; then
         | grep -vE "uploadavar.*code\"\:0" \
         | grep -v "/tooltypes" \
         | grep -vE "mtt\/index.*error\"\:0" \
+        | grep -vE "mtttournaments.*error\"\:0" \
+        | grep -vE "islotlogout.*ErrorCode\"\:0" \
         > "$OUTPUT_FILE"
     fi
     
