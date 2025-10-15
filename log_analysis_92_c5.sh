@@ -82,6 +82,9 @@ if [ -f "$INPUT_FILE" ]; then
         | grep -v "验证tonken\.INFO" \
         | grep -v "登录成功" \
         | grep -v "异地登录短信日志" \
+        | grep -v "获取IP信息\.INFO" \
+        | grep -v "获取IP信息经由db\.INFO" \
+        | grep -v "获取IP信息成功\.INFO" \
         | grep -vE "getVcodeByRegister.*post_data" \
         | grep -vE "checkVcodeByForgetPwd.*post_data" \
         | grep -vE "getVcodeByResetPwd.*post_data" \
